@@ -1,0 +1,21 @@
+{
+  "name": "projectmanagement",
+  "version": "1.0.0",
+  "description": "\"A project management backend application\"",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "node index.js"
+  },
+  "keywords": [
+    "backend",
+    "APIs",
+    "Nodejs",
+    "project-management"
+  ],
+  "author": "Manas Singh Jyoti",
+  "license": "ISC",
+  "devDependencies": {
+    "prettier": "3.9.6"
+  }
+}
