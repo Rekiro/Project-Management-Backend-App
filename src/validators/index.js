@@ -1,4 +1,4 @@
-import {body} from "express-validator";
+import { body } from "express-validator";
 
 const userRegisterValidator = () => {
     return [
@@ -14,18 +14,23 @@ const userRegisterValidator = () => {
             .withMessage("Username is required")
             .isLowercase()
             .withMessage("Username must be in lowercase")
-            .isLength({min: 3})
+            .isLength({ min: 3 })
             .withMessage("Username must be at least 3 characters long"),
-        body("password")
-            .trim()
-            .notEmpty()
-            .withMessage("Password is required"),
-        body("fullName")
-            .optional()
-            .trim()
-    ]
-}
+        body("password").trim().notEmpty().withMessage("Password is required"),
+        body("fullName").optional().trim(),
+    ];
+};
 
-export {
-    userRegisterValidator
-}
+const userLoginValidator = () => {
+    return [
+        body("email")
+            .trim()
+            .optional()
+            .isEmail()
+            .withMessage("Email is invalid"),
+        body("username").trim().optional(),
+        body("password").trim().notEmpty().withMessage("Password is required"),
+    ];
+};
+
+export { userRegisterValidator, userLoginValidator };

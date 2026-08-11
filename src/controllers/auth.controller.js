@@ -82,4 +82,53 @@ const registerUser = asyncHandler(async (req, resp) => {
         );
 });
 
-export { registerUser };
+const login = asyncHandler(async (req, resp) => {
+    const { username, email, password } = req.body;
+
+    if (!username && !email)
+        throw new ApiError(400, "Username or email is required for login.");
+
+    const user = await User.findOne({
+        $or: [{ username }, { email }],
+    });
+
+    if (!user)
+        throw new ApiError(
+            400,
+            "No user exists for the given username or email.",
+        );
+
+    const isPasswordValid = await user.isPasswordCorrect(password);
+    if (!isPasswordValid)
+        throw new ApiError(400, "Input password is incorrect.");
+
+    const { accessToken, refreshToken } =
+        await generateAccessTokenAndRefreshToken(user._id);
+
+    const loggedInUser = await User.findById(user._id).select(
+        "-password -refreshToken -emailVerificationToken -emailVerificationExpiry",
+    );
+
+    const options = {
+        httpOnly: true,
+        secure: true,
+    };
+
+    return resp
+        .status(200)
+        .cookie("accessToken", accessToken, options)
+        .cookie("refreshToken", refreshToken, options)
+        .json(
+            new ApiResponse(
+                200,
+                {
+                    user: loggedInUser,
+                    accessToken,
+                    refreshToken,
+                },
+                "User logged in successfully",
+            ),
+        );
+});
+
+export { registerUser, login };
