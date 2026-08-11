@@ -1,22 +1,33 @@
 {
-  "name": "projectmanagement",
-  "version": "1.0.0",
-  "description": "\"A project management backend application\"",
-  "main": "index.js",
-  "type": "module",
-  "scripts": {
-    "dev": "node --watch --watch-preserve-output index.js",
-    "start": "node index.js"
-  },
-  "keywords": [
-    "backend",
-    "APIs",
-    "Nodejs",
-    "project-management"
-  ],
-  "author": "Manas Singh Jyoti",
-  "license": "ISC",
-  "devDependencies": {
-    "prettier": "3.9.6"
-  }
+    "name": "projectmanagement",
+    "version": "1.0.0",
+    "description": "\"A project management backend application\"",
+    "main": "index.js",
+    "type": "module",
+    "scripts": {
+        "dev": "node --watch --watch-preserve-output src/index.js",
+        "start": "node src/index.js"
+    },
+    "keywords": [
+        "backend",
+        "APIs",
+        "Nodejs",
+        "project-management"
+    ],
+    "author": "Manas Singh Jyoti",
+    "license": "ISC",
+    "devDependencies": {
+        "prettier": "3.9.6"
+    },
+    "dependencies": {
+        "bcrypt": "^6.0.0",
+        "cors": "^2.8.6",
+        "dotenv": "^17.4.2",
+        "express": "^5.2.1",
+        "express-validator": "^7.3.2",
+        "jsonwebtoken": "^9.0.3",
+        "mailgen": "^2.0.34",
+        "mongoose": "^9.8.0",
+        "nodemailer": "^9.0.3"
+    }
 }
