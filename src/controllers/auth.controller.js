@@ -207,7 +207,7 @@ const verifyEmail = asyncHandler(async (req, resp) => {
 });
 
 const resendEmailVerification = asyncHandler(async (req, resp) => {
-    const user = await User.findById(user?._id);
+    const user = await User.findById(req.user?._id);
 
     if (!user) throw new ApiError(404, "User does not exist");
     if (user.isEmailVerified)
@@ -346,8 +346,8 @@ const resetForgotPassword = asyncHandler(async (req, resp) => {
 
     if (!user) throw new ApiError(489, "Token is invalid or expired");
 
-    if (newPasword !== confirmPassword)
-        throw new ApiError(400, "Passwords does not match");
+    if (newPassword !== confirmPassword)
+        throw new ApiError(400, "Passwords do not match");
 
     user.password = newPassword;
     user.forgotPasswordToken = undefined;
@@ -369,7 +369,7 @@ const resetForgotPassword = asyncHandler(async (req, resp) => {
 const changeCurrentPassword = asyncHandler(async (req, resp) => {
     const { oldPassword, newPassword, confirmPassword } = req.body;
 
-    const user = User.findById(req.user._id);
+    const user = await User.findById(req.user._id);
 
     const isPasswordValid = await user.isPasswordCorrect(oldPassword);
     if (!isPasswordValid)

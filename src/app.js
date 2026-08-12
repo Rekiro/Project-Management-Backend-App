@@ -34,4 +34,14 @@ app.get("/", (req, resp) => {
     resp.send("Hello world!");
 });
 
+app.use((err, req, resp, next) => {
+    const statusCode = err.statusCode || 500;
+    return resp.status(statusCode).json({
+        success: err.success || false,
+        message: err.message || "Internal Server Error",
+        errors: err.errors || [],
+        ...(process.env.NODE_ENV === "development" && { stack: err.stack }),
+    });
+});
+
 export default app;
