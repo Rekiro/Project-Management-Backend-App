@@ -146,7 +146,7 @@ const logout = asyncHandler(async (req, resp) => {
             },
         },
         {
-            new: true,
+            returnDocument: "after",
         },
     );
 
