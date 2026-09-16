@@ -22,7 +22,7 @@ const projectMemberSchema = new Schema(
     { timestamps: true },
 );
 
-export const ProjectMemeber = mongoose.model(
+export const ProjectMember = mongoose.model(
     "ProjectMember",
     projectMemberSchema,
 );
