@@ -1,4 +1,4 @@
-import mongoose, { mongoosePopulatedDocumentMarker, Schema } from "mongoose";
+import mongoose, { Schema } from "mongoose";
 
 const projectSchema = new Schema(
     {
