@@ -97,6 +97,19 @@ const addMemberToProjectValidator = () => {
             .withMessage(`Invalid role. Allowed roles: ${AvailableUserRoles}`),
     ];
 };
+
+const createTaskValidator = () => {
+    return [
+        body("title")
+            .trim()
+            .notEmpty()
+            .withMessage("Title is required"),
+        body("description")
+            .trim()
+            .notEmpty()
+            .withMessage("Description is required")
+    ]
+}
 export {
     userRegisterValidator,
     userLoginValidator,
@@ -105,4 +118,5 @@ export {
     changeCurrentPasswordValidator,
     createProjectValidator,
     addMemberToProjectValidator,
+    createTaskValidator
 };

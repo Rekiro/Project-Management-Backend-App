@@ -79,7 +79,7 @@ const getProjectById = asyncHandler(async (req, resp) => {
         .json(new ApiResponse(200, project, "Project fetched successfully"));
 });
 
-const createProject = asyncHandler(async (req, reps) => {
+const createProject = asyncHandler(async (req, resp) => {
     const { name, description } = req.body;
 
     const project = await Project.create({

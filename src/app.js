@@ -27,16 +27,21 @@ app.use(
 import healthCheckRouter from "./routes/healthCheck.route.js";
 import authRouter from "./routes/auth.route.js";
 import projectRouter from "./routes/project.route.js";
+import taskRouter from "./routes/task.route.js"
 
 app.use("/api/v1/healthcheck/", healthCheckRouter);
 app.use("/api/v1/auth/", authRouter);
 app.use("/api/v1/projects", projectRouter);
+app.use("/api/v1/tasks", taskRouter);
 
 app.get("/", (req, resp) => {
     resp.send("Hello world!");
 });
 
-app.use((err, req, resp, next) => {
+import cleanupFiles from "./utils/cleanupFiles.js";
+app.use(async (err, req, resp, next) => {
+    if (req.files?.length) await cleanupFiles(req.files);
+    if (req.file) await cleanupFiles([req.file]); // upload.single() case
     const statusCode = err.statusCode || 500;
     return resp.status(statusCode).json({
         statusCode: statusCode,
